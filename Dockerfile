@@ -1,21 +1,34 @@
-FROM node:16-alpine
+FROM node:20-alpine AS builder
+
+RUN mkdir /app
+COPY ./package*.json /app/
+WORKDIR /app
+RUN npm ci
+
+COPY ./tsconfig.json /app/
+COPY ./src /app/src
+
+RUN npm run build
+
+# ──────────────────────────────────────────────────────────────
+FROM node:20-alpine
 
 RUN apk add --no-cache git openssh-client
 
 RUN mkdir /app
 
 COPY ./package*.json /app/
+WORKDIR /app
+RUN npm ci --omit=dev
+
+COPY --from=builder /app/dist /app/dist
 COPY ./locales /app/locales
-COPY ./index.js /app/index.js
 
 VOLUME /app/pages
 VOLUME /root/.ssh
-
-WORKDIR /app
-RUN npm ci
 
 RUN git config --global --add safe.directory /app/pages
 
 ENV HOST=0.0.0.0
 
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]

@@ -1,7 +1,7 @@
 module.exports = {
   apps: [{
-    name: 'cyrillic-design-bot',
-    script: 'index.js',
-    watch: '.'
+    name: 'copy-bot',
+    script: 'dist/index.js',
+    watch: false
   }]
 }
