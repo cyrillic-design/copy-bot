@@ -1,44 +1,39 @@
 {
-  "name": "channel-to-spa-bot",
-  "version": "1.0.0",
-  "description": "Translate data from channel to spa on GitHub Pages",
+  "name": "copy-bot",
+  "version": "2.0.0",
+  "description": "Telegram bot that publishes channel posts as JSON data for GitHub Pages",
   "repository": {
     "url": "https://github.com/cyrillic-design/copy-bot",
     "type": "git"
   },
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "dev": " dotenv-load supervisor -x node index.js",
-    "start": "dotenv-load node index.js",
-    "now-start": "dotenv-load telegraf -d ${NOW_URL}",
-    "lint": "eslint .",
-    "test": "npm run lint"
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "dev": "ts-node src/index.ts",
+    "lint": "eslint src",
+    "test": "npm run lint && npm run build"
   },
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=16.0.0"
   },
   "author": "mike p. <jfkz@users.noreply.github.com>",
   "license": "MIT",
   "dependencies": {
-    "bull": "^3.13.0",
-    "colors": "^1.4.0",
-    "count-files": "^2.6.2",
-    "cyrillic-to-translit-js": "^3.1.0",
-    "dotenv-load": "^2.0.0",
-    "glob": "^7.1.6",
-    "lockfile": "^1.0.4",
-    "telegraf": "^3.34.0",
-    "telegraf-i18n": "^6.6.0",
-    "telegraf-update-logger": "^1.1.7"
+    "cyrillic-to-translit-js": "^3.2.1",
+    "dotenv": "^16.0.0",
+    "glob": "^7.2.3",
+    "grammy": "^1.21.0",
+    "js-yaml": "^4.1.0"
   },
   "devDependencies": {
-    "@types/bull": "^3.12.1",
-    "eslint": "^6.7.1",
-    "eslint-config-standard": "^14.1.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-node": "^10.0.0",
-    "eslint-plugin-promise": "^4.0.1",
-    "eslint-plugin-standard": "^4.0.0",
-    "supervisor": "^0.12.0"
+    "@types/glob": "^7.2.0",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.0.0",
+    "globals": "^14.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "eslint": "^9.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.9.3"
   }
 }
